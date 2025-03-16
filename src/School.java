@@ -1,62 +1,42 @@
-// version 2
 public class School {
-    private Teacher[] teachers;
-    private Student[] students;
-    private int teacherCount = 0;
-    private int studentCount = 0;
+    private TeacherList teachers;
+    private StudentList students;
 
     public School() {
-        this.teachers = new Teacher[100];
-        this.students = new Student[100];
+        this.teachers = new TeacherList();
+        this.students = new StudentList();
     }
 
-    public Teacher[] getTeachers() {
-        return teachers;
-    }
-
-    public Student[] getStudents() {
+    public StudentList getStudents() {
         return students;
     }
 
-    public double getTotalMoneyEarned() {
-        double total = 0;
-
-        for (int i = 0; i < studentCount; i++) {
-            total += students[i].getFeesPaid();
-        }
-
-        return total;
+    public TeacherList getTeachers() {
+        return teachers;
     }
-
-    public double getTotalMoneySpent() {
-        double total = 0;
-        for (int i = 0; i < teacherCount; i++) {
-            total += teachers[i].getSalaryEarned();
-        }
-
-        return total;
-    }
-
 
     public void addTeacher(Teacher teacher) {
-
-        if (teacherCount >= teachers.length) {
-            Teacher[] temp = new Teacher[teachers.length * 2];
-            System.arraycopy(teachers, 0, temp, 0, teachers.length);
-            teachers = temp;
-        }
-
-        teachers[teacherCount++] = teacher;
+        teachers.add(teacher);
         teacher.setSchool(this);
     }
 
     public void addStudent(Student student) {
-        if (studentCount >= students.length) {
-            Student[] temp = new Student[students.length * 2];
-            System.arraycopy(students, 0, temp, 0, students.length);
-            students = temp;
+        students.add(student);
+    }
+
+    public double getTotalMoneyEarned() {
+        double totalMoneyEarned = 0;
+        for (int i = 0; i < students.size(); i++) {
+            totalMoneyEarned += students.get(i).getFeesPaid();
         }
-        students[studentCount++] = student;
-        student.setSchool(this);
+        return totalMoneyEarned;
+    }
+
+    public double getTotalMoneySpent() {
+        double totalMoneySpent = 0;
+        for (int i = 0; i < students.size(); i++) {
+            totalMoneySpent += students.get(i).getFeesPaid();
+        }
+        return totalMoneySpent;
     }
 }
