@@ -1,3 +1,4 @@
+// version 2
 public class School {
     private Teacher[] teachers;
     private Student[] students;
